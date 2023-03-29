@@ -5,6 +5,7 @@ import bcrypt #biblioteca para encriptar
 class controladorBD:
     def __init__(self):
         pass
+    
     def conexionBD(self):#Primer metodo para establecer conexión
         try:
             conexion=sqlite3.connect("C:/Users/leon_/Documents/UPQ/5° Cuatri/PROGRMACIÓN OO/Tkinter_SQLlite/tkintersqllite/BasedeDatosUsuarios.db")#Funcion de sql lite, para conectar, usa la ruta de donde esta el archivo físico
@@ -12,6 +13,7 @@ class controladorBD:
             return conexion#para poder conectar la base datos osea conexion carga la conexion
         except sqlite3.OperationalError:#Para pedir que continue a pesar de errores
             print("No se pudo Conectar")
+            
     def guardarusuario(self,nom,cor,con):#Metodo para guardar usuario, usa self por el encapsulado y las variables que vamos a requerir para trabajar
         #El primer paso es mandar a llamar la conexión, guardandola en una variable llamada  conx
         conx=self.conexionBD()
@@ -31,7 +33,9 @@ class controladorBD:
             conx.commit()#Esta funcion se usa para guardar la informacion en la base datos, la informacion proporcionadapor el cursor
             conx.close
             messagebox.showinfo("Exito","Usuario guardado")
+            
     #Creamos metodo para encriptar
+    
     def encriptarcontraseña(self,con):#ocupa la contraseña para encriptar
         #contraseña plana es la contraseña sin encriptar y la guardamos en una variable
         conplana=con
@@ -44,3 +48,27 @@ class controladorBD:
         print(conha)
         #regresamos la contraseña encriptada
         return conha
+        #Controlador de la  busqueda de usuario
+    def consultarUsuario(self,id):
+            #1 realizar conxión
+        conx=self.conexionBD() #Para acceder a la funcion conexion
+            #Verificar que ID no sea Vacio
+        if(id==""):
+                messagebox.showwarning("Cuidado","Escribe un Identificdor")
+                conx.close()
+        else:
+                #3 ejecutar la consulta
+            try:
+                    #4Preparamos lo necesario
+                cursor=conx.cursor()
+                sqlSelect="Select* from tbRegistrados where id = "+id
+                    #5 Ejecutamos y cerramos conexion
+                cursor.execute(sqlSelect)#Ejecuta sqlSelecct
+                RSusuario=cursor.fetchall()#result set o variable para guardar la información de la consulta, lo que tenga cursor lo pasamos a la variabale para seso sirve la funcion cursor.fetchall()
+                conx.close()
+                return RSusuario
+            except sqlite3.OperationalError:
+                print("Error de Consulta")
+        
+        
+    
