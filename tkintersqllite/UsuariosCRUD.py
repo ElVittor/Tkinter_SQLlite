@@ -18,12 +18,31 @@ def ejecutaSelectU():
     #Itermos el contenido de la cosulta y lo guardamos
     for usu in rsUsu:
         cadena=str(usu[0])+" "+usu[1]+" "+usu[2]+" "+str(usu[3])#Tomamos lo elementos de Rsusu y los iteremoas para crear la cadena y lo pnemos en cadena, convertimos a str las que lo requiern 
-    
+        
     #para ver si existe e usuario
     if(rsUsu):#aqui esta funcionando con true y false, si tiene algo va, si no va al else
         print(cadena)#Esto es tarea para buscar como agregar esta informacion tambien en el cuadro de texto
+        textBus.config(state="normal")#para habilitar la entrada de texto en el cuadro de texto
+        textBus.delete(1.0,"end") #Limpia el contenido del cuadro de texto
+        textBus.insert("end",cadena)#inserta el contenido de cadena en el cuadro de texto
+        textBus.config(state="disabled")#desactiva la entra de texto en el cuadro de texto
     else:
         messagebox.showinfo("No encontrado","Usuario NO existe en Base de Datos")
+
+def ejecutaconsultausuarios():
+    RSConUsu=controlador.consultartodoslosusuarios()
+    for usu in RSConUsu:
+        cadena=str(usu[0])+" "+usu[1]+" "+usu[2]+" "+str(usu[3])#Tomamos lo elementos de Rsusu y los iteremoas para crear la cadena y lo pnemos en cadena, convertimos a str las que lo requiern 
+    
+    if(RSConUsu):#aqui esta funcionando con true y false, si tiene algo va, si no va al else
+        print(cadena)#Esto es tarea para buscar como agregar esta informacion tambien en el cuadro de texto
+        txtbususu.config(state="normal")#para habilitar la entrada de texto en el cuadro de texto
+        txtbususu.delete(1.0,"end") #Limpia el contenido del cuadro de texto
+        txtbususu.insert("end",cadena)#inserta el contenido de cadena en el cuadro de texto
+        txtbususu.config(state="disabled")#desactiva la entra de texto en el cuadro de texto
+    else:
+        messagebox.showinfo("No encontrado","Base de datos Vacia")
+
 #paso 1
 ventana=Tk()
 ventana.title("CRUD de Usuarios")
@@ -64,8 +83,16 @@ txtid=Entry(pestaña2,textvariable=varBus).pack()
 btnBus=Button(pestaña2,text="Buscar:",command=ejecutaSelectU).pack()
 
 subBus=Label(pestaña2,text="Registrado",fg="Blue",font=("Modern",15)).pack()
-textBus=tk.Text(pestaña2,height=5,width=52,).pack()#al usar el .tk estamos diciendo que usamos la libreria tk, y la funcion text, que es una entrada de texto mucho mayor
+textBus=tk.Text(pestaña2,height=5,width=52)#al usar el .tk estamos diciendo que usamos la libreria tk, y la funcion text, que es una entrada de texto mucho mayor
+textBus.pack()
 
+#Practica 17 Ventana Consultar Usuarios
+
+varbususu=tk.StringVar
+lblbususu=Label(pestaña3,text="Desplegar toda la información de Usuarios").pack()
+txtbususu=tk.Text(pestaña3,height=13,width=52)
+txtbususu.pack()
+btnbususu=Button(pestaña3,text="Consultar Usuarios",command=ejecutaconsultausuarios).pack()
 
 #Paso 3
 panel.add(pestaña1,text="Agregar Usuarios")#posiciona la pestaña y le agrega el texto

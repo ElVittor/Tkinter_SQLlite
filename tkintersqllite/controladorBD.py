@@ -69,6 +69,25 @@ class controladorBD:
                 return RSusuario
             except sqlite3.OperationalError:
                 print("Error de Consulta")
-        
+    def consultartodoslosusuarios(self):
+            #1 realizar conxión
+        conx=self.conexionBD() #Para acceder a la funcion conexion
+            #Verificar que ID no sea Vacio
+        if(id==""):
+                messagebox.showwarning("Cuidado","Escribe un Identificdor")
+                conx.close()
+        else:
+                #3 ejecutar la consulta
+            try:
+                    #4Preparamos lo necesario
+                cursor=conx.cursor()
+                sqlSelect="Select * from tbRegistrados;"
+                    #5 Ejecutamos y cerramos conexion
+                cursor.execute(sqlSelect)#Ejecuta sqlSelecct
+                RSusuario=cursor.fetchall()#result set o variable para guardar la información de la consulta, lo que tenga cursor lo pasamos a la variabale para seso sirve la funcion cursor.fetchall()
+                conx.close()
+                return RSusuario
+            except sqlite3.OperationalError:
+                print("Error de Consulta")    
         
     
