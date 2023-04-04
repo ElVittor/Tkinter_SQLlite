@@ -31,13 +31,12 @@ def ejecutaSelectU():
 
 def ejecutaconsultausuarios():
     
-        RSConUsu=controlador.consultartodoslosusuarios()
-        tabla.delete(*tabla.get_children())#limpia la tabla
-        for usu in RSConUsu:
-            tabla.insert("","end",text=usu[0],values=(usu[1],usu[2],usu[3])) #Tomamos lo elementos de Rsusu y los iteremoas para crear la cadena y lo pnemos en cadena, convertimos a str las que lo requiern 
+    RSConUsu=controlador.consultartodoslosusuarios()
+    tabla.delete(*tabla.get_children())#limpia la tabla
+    for usu in RSConUsu:
+        tabla.insert("","end",text=usu[0],values=(usu[1],usu[2],usu[3])) #Tomamos lo elementos de Rsusu y los iteremoas para crear la cadena y lo pnemos en cadena, convertimos a str las que lo requiern 
             
-        
-       # if(RSConUsu):#aqui esta funcionando con true y false, si tiene algo va, si no va al else
+        # if(RSConUsu):#aqui esta funcionando con true y false, si tiene algo va, si no va al else
             
          #   print(cadena)#Esto es tarea para buscar como agregar esta informacion tambien en el cuadro de texto
          #   txtbususu.config(state="normal")#para habilitar la entrada de texto en el cuadro de texto
@@ -46,6 +45,13 @@ def ejecutaconsultausuarios():
          ##else:
            # messagebox.showinfo("No encontrado","Base de datos Vacia")
 
+def ejecutaactualizarusuario():
+    pass
+    #controlador.guardarusuario(varNom2.get(),varCor2.get(),varCon2.get())#usamos el objeto/instancia controlador para ejecutar guardar ususario, y le pasamos las variables tomadas del entry de cada una
+    
+def ejecutaeliminarusuario():
+    pass
+    
 #paso 1
 ventana=Tk()
 ventana.title("CRUD de Usuarios")
@@ -58,6 +64,7 @@ pestaña1=ttk.Frame(panel)#pestaña 1 va al panel
 pestaña2=ttk.Frame(panel)#pestaña 2 va al panel
 pestaña3=ttk.Frame(panel)#pestaña 3 va al panel
 pestaña4=ttk.Frame(panel)#pestaña 4 va al panel
+pestaña5=ttk.Frame(panel)#pestaña 5 va al panel
 #Paso 4
 #Formulario de registro
 titulo=Label(pestaña1,text="Registro Usuarios",fg="blue",font=("Modern",18)).pack() #posicionamos un titulo en una etiqueta, en pestaña 1, con texto, color de letra, tipo de fuente y tamaño, colocandolo con el pack
@@ -110,11 +117,42 @@ tabla.heading("Correo",text="Correo",anchor=tk.CENTER)
 tabla.heading("Contraseña",text="Contraseña",anchor=tk.CENTER) 
 tabla.pack()
 
+#Practica 18 Ventana Actualizar/Eliminar Usuario
+
+titulo=Label(pestaña4,text="Edicion de Usuarios",fg="blue",font=("Modern",18)).pack() #posicionamos un titulo en una etiqueta, en pestaña 1, con texto, color de letra, tipo de fuente y tamaño, colocandolo con el pack
+
+varID2=tk.StringVar()#para vaciar el Entry
+lblID2=Label(pestaña4,text="ID Usuario a Editar: ").pack()
+txtID2=Entry(pestaña4,textvariable=varID2).pack() #text variable te pide la variable donde va aguardar
+
+varNom2=tk.StringVar()#para vaciar el Entry
+lblNom2=Label(pestaña4,text="Nombre: ").pack()
+txtNom2=Entry(pestaña4,textvariable=varNom2).pack() #text variable te pide la variable donde va aguardar
+
+varCor2=tk.StringVar()#para vaciar el Entry
+lblCor2=Label(pestaña4,text="Correo: ").pack()
+txtCor2=Entry(pestaña4,textvariable=varCor2).pack() #text variable te pide la variable donde va aguardar
+
+varCon2=tk.StringVar()#para vaciar el Entry
+lblCon2=Label(pestaña4,text="Contraseña: ").pack()
+txtCon2=Entry(pestaña4,textvariable=varCon2).pack() #text variable te pide la variable donde va aguardar
+btnEditar=Button(pestaña4,text="Editar Usuario",command=ejecutaactualizarusuario).pack()#Usamos el ejecutar insert para guardar la información
+
+#Eliminar
+varID=tk.StringVar()#para vaciar el Entry
+titulo=Label(pestaña5,text="Eliminar Usuario",fg="blue",font=("Modern",18)).pack() #posicionamos un titulo en una etiqueta, en pestaña 1, con texto, color de letra, tipo de fuente y tamaño, colocandolo con el pack
+lbID2=Label(pestaña5,text="ID del Usuario a Eliminar: ").pack()
+txtID2=Entry(pestaña5,textvariable=varID).pack()
+
+btnEliminar=Button(pestaña5,text="Eliminar Usuario",command=ejecutaeliminarusuario).pack()#Usamos el ejecutar insert para guardar la información
+
+
 #Paso 3
 panel.add(pestaña1,text="Agregar Usuarios")#posiciona la pestaña y le agrega el texto
 panel.add(pestaña2,text="Buscar Usuario")#posiciona la pestaña y le agrega el texto
 panel.add(pestaña3,text="Consultar Usuarios")#posiciona la pestaña y le agrega el texto
 panel.add(pestaña4,text="Actualizar Usuario")#posiciona la pestaña y le agrega el texto
+panel.add(pestaña5,text="Eliminar Usuario")#posiciona la pestaña y le agrega el texto
 
 
 
