@@ -100,7 +100,7 @@ class controladorBD:
         conx=self.conexionBD() #Para acceder a la funcion conexion
         cursor=conx.cursor()
         sqlEdit="update tbRegistrados set Nombre=?,Correo=?,Contraseña=? where id=?"
-        if(nom=="" or cor=="" or con==""):
+        if(nom=="" or cor=="" or con=="" or id==""):
             messagebox.showwarning("Cuidado","Formulario incompleto")
             conx.close()#cierra la conexion evita errores, siempre que se abre, se vuelve a cerrar despues de usar
         else:#Ahora si realizamos el inser a la base de datos

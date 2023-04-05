@@ -38,14 +38,14 @@ def ejecutaconsultausuarios():
             
        
 def ejecutaactualizarusuario():
-    RespYesNo=messagebox.askyesno("Actualizar","Desea actualizar el siguiente usuario:"+"\nID: "+str(varID2)+"\nNombre: "+str(varNom2)+"\nCorreo: "+str(varCor2))
+    RespYesNo=messagebox.askyesno("Actualizar",message=f"Desea actualizar el siguiente usuario: \nID: {varID2.get()}\nNombre: {varNom2.get()}\nCorreo: {varCor2.get()}")
     print(varID2,varNom2,varCor2,varCon2)
     if RespYesNo==True:
         controlador.editarusuario(varID2.get(),varNom2.get(),varCor2.get(),varCon2.get())
 
     
 def ejecutaeliminarusuario():
-    RespElimYN=messagebox.askyesno("Eliminar","Desea eliminar el siguiente usuario:"+"\nID: "+str(varID))
+    RespElimYN=messagebox.askyesno("Eliminar",message=f"Desea eliminar el Usuario\nID: {varID.get()}")
     if(RespElimYN==True):
         controlador.eliminarusuario(varID.get())
     
