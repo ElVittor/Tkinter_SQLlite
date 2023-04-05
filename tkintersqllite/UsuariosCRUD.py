@@ -45,8 +45,8 @@ def ejecutaactualizarusuario():
 
     
 def ejecutaeliminarusuario():
-    #RespElimYN=messagebox.askyesno("Eliminar","Desea eliminar el siguiente usuario:"+"\nID: "+str(varID))
-    #if(RespElimYN==True):
+    RespElimYN=messagebox.askyesno("Eliminar","Desea eliminar el siguiente usuario:"+"\nID: "+str(varID))
+    if(RespElimYN==True):
         controlador.eliminarusuario(varID.get())
     
 #paso 1

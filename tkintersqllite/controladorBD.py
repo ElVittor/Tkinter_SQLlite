@@ -123,18 +123,18 @@ class controladorBD:
         pass
         conx=self.conexionBD() #Para acceder a la funcion conexion
         cursor=conx.cursor()
-        sqldelete="delete from tbRegistrados where ID=?"
-        ID=id
-        if(ID==""):
+        sqldelete="DELETE FROM tbRegistrados WHERE ID=?"
+        
+        if(id==""):
                 messagebox.showwarning("Cuidado","Escribe un Identificdor")
                 conx.close()
         else:
                 #3 ejecutar la consulta
             try:
                     #4Preparamos lo necesario
-                cursor.execute(sqldelete,ID)#Ejecuta sqlSelecct
+                cursor.execute(sqldelete,id)#Ejecuta sqlSelecct
                 conx.commit()
                 conx.close()
-                
+                messagebox.showinfo("Correcto","Usuario Eliminado")
             except sqlite3.OperationalError:
                 print("Error de Consulta")
