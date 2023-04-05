@@ -36,21 +36,18 @@ def ejecutaconsultausuarios():
     for usu in RSConUsu:
         tabla.insert("","end",text=usu[0],values=(usu[1],usu[2],usu[3])) #Tomamos lo elementos de Rsusu y los iteremoas para crear la cadena y lo pnemos en cadena, convertimos a str las que lo requiern 
             
-        # if(RSConUsu):#aqui esta funcionando con true y false, si tiene algo va, si no va al else
-            
-         #   print(cadena)#Esto es tarea para buscar como agregar esta informacion tambien en el cuadro de texto
-         #   txtbususu.config(state="normal")#para habilitar la entrada de texto en el cuadro de texto
-         #   txtbususu.delete(1.0,"end") #Limpia el contenido del cuadro de texto
-         #   txtbususu.insert("end",cadena)#inserta el contenido de cadena en el cuadro de texto
-         ##else:
-           # messagebox.showinfo("No encontrado","Base de datos Vacia")
-
+       
 def ejecutaactualizarusuario():
-    pass
-    #controlador.guardarusuario(varNom2.get(),varCor2.get(),varCon2.get())#usamos el objeto/instancia controlador para ejecutar guardar ususario, y le pasamos las variables tomadas del entry de cada una
+    RespYesNo=messagebox.askyesno("Actualizar","Desea actualizar el siguiente usuario:"+"\nID: "+str(varID2)+"\nNombre: "+str(varNom2)+"\nCorreo: "+str(varCor2))
+    print(varID2,varNom2,varCor2,varCon2)
+    if RespYesNo==True:
+        controlador.editarusuario(varID2.get(),varNom2.get(),varCor2.get(),varCon2.get())
+
     
 def ejecutaeliminarusuario():
-    pass
+    #RespElimYN=messagebox.askyesno("Eliminar","Desea eliminar el siguiente usuario:"+"\nID: "+str(varID))
+    #if(RespElimYN==True):
+        controlador.eliminarusuario(varID.get())
     
 #paso 1
 ventana=Tk()
@@ -99,9 +96,6 @@ textBus.pack()
 #Practica 17 Ventana Consultar Usuarios
 
 varbususu=tk.StringVar
-#lblbususu=Label(pestaña3,text="Desplegar toda la información de Usuarios").pack()
-#txtbususu=tk.Text(pestaña3,height=13,width=52)
-#txtbususu.pack()
 btnbususu=Button(pestaña3,text="Consultar Usuarios",command=ejecutaconsultausuarios).pack()
 
 subus=Label(pestaña3,text="Usuario",fg="Blue",font=("Modern",15)).pack()
@@ -143,7 +137,6 @@ varID=tk.StringVar()#para vaciar el Entry
 titulo=Label(pestaña5,text="Eliminar Usuario",fg="blue",font=("Modern",18)).pack() #posicionamos un titulo en una etiqueta, en pestaña 1, con texto, color de letra, tipo de fuente y tamaño, colocandolo con el pack
 lbID2=Label(pestaña5,text="ID del Usuario a Eliminar: ").pack()
 txtID2=Entry(pestaña5,textvariable=varID).pack()
-
 btnEliminar=Button(pestaña5,text="Eliminar Usuario",command=ejecutaeliminarusuario).pack()#Usamos el ejecutar insert para guardar la información
 
 

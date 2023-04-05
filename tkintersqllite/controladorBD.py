@@ -48,7 +48,9 @@ class controladorBD:
         print(conha)
         #regresamos la contraseña encriptada
         return conha
+    
         #Controlador de la  busqueda de usuario
+        
     def consultarUsuario(self,id):
             #1 realizar conxión
         conx=self.conexionBD() #Para acceder a la funcion conexion
@@ -69,6 +71,8 @@ class controladorBD:
                 return RSusuario
             except sqlite3.OperationalError:
                 print("Error de Consulta")
+                
+                
     def consultartodoslosusuarios(self):
             #1 realizar conxión
         conx=self.conexionBD() #Para acceder a la funcion conexion
@@ -88,6 +92,49 @@ class controladorBD:
                 conx.close()
                 return RSusuario
             except sqlite3.OperationalError:
-                print("Error de Consulta")    
-        
+                print("Error de Consulta")
+                
+                
+    def editarusuario(self,id,nom,cor,con):
+        #1 realizar conxión, y establecer cursor y accion
+        conx=self.conexionBD() #Para acceder a la funcion conexion
+        cursor=conx.cursor()
+        sqlEdit="update tbRegistrados set Nombre=?,Correo=?,Contraseña=? where id=?"
+        if(nom=="" or cor=="" or con==""):
+            messagebox.showwarning("Cuidado","Formulario incompleto")
+            conx.close()#cierra la conexion evita errores, siempre que se abre, se vuelve a cerrar despues de usar
+        else:#Ahora si realizamos el inser a la base de datos
+            try:
+                #crear una lista para evitar errores de sintxis con los para metros que insertaremos
+                conh=self.encriptarcontraseña(con)#usamos self porque es un metodo de la clase, con esto encriptamos la contraseña en con, es decir el return conha se guarda en con
+                datose=(nom,cor,conh,id)#Usamos el conh para guaradar la contraseña encriptada
+                #creamos la sintaxis sql para hacer el insert(lenguaje de sql).
+                #5 ejecutar insert
+                cursor.execute(sqlEdit,datose)#le pedimos al cursor ejecutar el insert con los datos guardados en la variable datos(antes definida)
+                conx.commit()#Esta funcion se usa para guardar la informacion en la base datos, la informacion proporcionadapor el cursor
+                conx.close
+                messagebox.showinfo("Exito","Usuario guardado")
+            except sqlite3.OperationalError:
+                print("Error de Actualizacion")
+                messagebox.showwarning("Cuidado","Error de Actualizacion")
+            
     
+    def eliminarusuario(self,id):
+        pass
+        conx=self.conexionBD() #Para acceder a la funcion conexion
+        cursor=conx.cursor()
+        sqldelete="delete from tbRegistrados where ID=?"
+        ID=id
+        if(ID==""):
+                messagebox.showwarning("Cuidado","Escribe un Identificdor")
+                conx.close()
+        else:
+                #3 ejecutar la consulta
+            try:
+                    #4Preparamos lo necesario
+                cursor.execute(sqldelete,ID)#Ejecuta sqlSelecct
+                conx.commit()
+                conx.close()
+                
+            except sqlite3.OperationalError:
+                print("Error de Consulta")
